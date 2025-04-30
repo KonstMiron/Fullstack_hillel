@@ -6,11 +6,11 @@ console.log('JS #1. Домашнє завдання. Основи JavaScript: П
  * Створіть змінні зі значеннями.
  */
 
-var myNum = 10; // ім'я змінної: myNum, значення: 10
-var myStr = 'some string'; // ім'я змінної: myStr, значення: 'some string'
-var myBool = true; // ім'я змінної: myBool, значення: true
-var myArr = [1, 2, 3, 4, 5]; // ім'я змінної: myArr, значення: 1, 2, 3, 4, 5
-var myObj = { first: 'First Name', last: 'Last Name' }; // ім'я змінної: myObj, значення: first: 'First Name', last: 'Last Name'
+let myNum = 10; // ім'я змінної: myNum, значення: 10
+let myStr = 'some string'; // ім'я змінної: myStr, значення: 'some string'
+let myBool = true; // ім'я змінної: myBool, значення: true
+let myArr = [1, 2, 3, 4, 5]; // ім'я змінної: myArr, значення: 1, 2, 3, 4, 5
+let myObj = { first: 'First Name', last: 'Last Name' }; // ім'я змінної: myObj, значення: first: 'First Name', last: 'Last Name'
 
 /*
  * #2
@@ -19,7 +19,8 @@ var myObj = { first: 'First Name', last: 'Last Name' }; // ім'я змінно�
  * Результат збережіть у змінній decimal2.
  */
 
-var decimal2 = myNum.toFixed(2); // decimal2
+let decimal2 = myNum.toFixed(2); // decimal2
+console.log(decimal2);
 
 /*
  * #3
@@ -28,7 +29,8 @@ var decimal2 = myNum.toFixed(2); // decimal2
  * Потім збільште його на 1 та запищіть в цю ж саму змінну.
  */
 
-var myBigInt = 123n; // myBigInt
+let myBigInt = 123n;
 console.log(myBigInt);
-var myBigInt = ++myBigInt;
+
+myBigInt = myBigInt + 1n;
 console.log(myBigInt);
