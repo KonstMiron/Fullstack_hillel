@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мій Проєкт</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+
+  <section class="h-screen bg-blue-600 text-white flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">Вітаємо на нашому сайті!</h1>
+    <p class="text-lg md:text-xl mb-6">Ми створюємо прості та красиві веб-сайти</p>
+    <a href="#about" class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition">Дізнатись більше</a>
+  </section>
+
+  <section id="about" class="py-20 px-6 bg-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">Про нас</h2>
+      <p class="text-lg leading-relaxed text-gray-600">
+        Ми — команда ентузіастів, що займається розробкою сучасних веб-додатків. Ми використовуємо найновіші технології, такі як Tailwind CSS, щоб зробити інтерфейси легкими, зручними та стильними.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 px-6 bg-gray-100">
+    <div class="max-w-xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-6">Зв’яжіться з нами</h2>
+      <form class="space-y-4">
+        <input type="text" placeholder="Ваше ім’я" class="w-full p-3 border border-gray-300 rounded">
+        <input type="email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded">
+        <textarea placeholder="Повідомлення" rows="5" class="w-full p-3 border border-gray-300 rounded"></textarea>
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Надіслати</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="bg-blue-600 text-white text-center py-4">
+    &copy; 2025 Мій сайт. Усі права захищені.
+  </footer>
+
+</body>
+</html>
