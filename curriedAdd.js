@@ -15,14 +15,17 @@
 */
 
 function curriedAdd(a) {
-  // code
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
 }
-
 // Приклад використання
-// const addFirst = curriedAdd(1)
-// const addSecond = addFirst(2)
-// const result = addSecond(3) // Повинно повернути 6
-// console.log('Result:', result)
+const addFirst = curriedAdd(1)
+const addSecond = addFirst(2)
+const result = addSecond(3) // Повинно повернути 6
+console.log('Result:', result)
 
 /*
  ? Ось як працює цей код:

@@ -15,14 +15,18 @@
 */
 
 function curriedDomain(protocol) {
-  // code
+  return function(domainName) {
+    return function(tld) {
+      return `${protocol}://${domainName}.${tld}`;
+    };
+  };
 }
 
 // Приклад використання
-// const protocolSetter = curriedDomain('https')
-// const domainNameSetter = protocolSetter('example')
-// const fullDomain = domainNameSetter('com') // Повинно повернути 'https://example.com'
-// console.log('Full Domain:', fullDomain)
+const protocolSetter = curriedDomain('https')
+const domainNameSetter = protocolSetter('example')
+const fullDomain = domainNameSetter('com') // Повинно повернути 'https://example.com'
+console.log('Full Domain:', fullDomain)
 
 /*
  Ось як працює цей код:

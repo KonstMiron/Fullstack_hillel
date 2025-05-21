@@ -11,21 +11,25 @@ deepInnerFunction повинна виконувати операцію множ�
 
 Результатом виклику outerFunction(arg1)(arg2)(arg3) має бути добуток arg1 * arg2 * arg3.
 */
-
 function outerFunction(arg1) {
+  // outerFunction приймає перший аргумент arg1 і повертає innerFunction
   function innerFunction(arg2) {
+    // innerFunction приймає другий аргумент arg2 і повертає deepInnerFunction
     function deepInnerFunction(arg3) {
-      // code
+      // deepInnerFunction приймає третій аргумент arg3
+      // Повертає добуток трьох аргументів: arg1 * arg2 * arg3
+      return arg1 * arg2 * arg3;
     }
 
-    // code
+    return deepInnerFunction;
   }
 
-  // code
+  return innerFunction;
 }
 
-// const result = outerFunction(2)(3)(4)
-// console.log(result) // Повинно повернути 24 (2*3*4)
+
+const result = outerFunction(2)(3)(4)
+console.log(result) // Повинно повернути 24 (2*3*4)
 
 /*
  Цей код є прикладом використання вкладених функцій у JavaScript, а також демонструє концепцію замикань (closures).
