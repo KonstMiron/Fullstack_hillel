@@ -9,19 +9,24 @@ console.log('#5. JavaScript homework example file')
  * якщо ні - то лічба триває
  */
 
-// const counter = function() {}
-
-// console.log(counter()) // 0
-// console.log(counter()) // 1
-// console.log(counter(100)) // 100
-// console.log(counter()) // 101
-// console.log(counter()) // 102
-// console.log(counter(500)) // 500
-// console.log(counter()) // 501
-// console.log(counter()) // 502
-// console.log(counter(0)) // 0
-// console.log(counter()) // 0
-// console.log(counter()) // 1
+let count = 0;
+const counter = function(n) {
+  if (typeof n === 'number') {
+    count = n;
+  }
+  return count++;
+};
+console.log(counter()) // 0
+console.log(counter()) // 1
+console.log(counter(100)) // 100
+console.log(counter()) // 101
+console.log(counter()) // 102
+console.log(counter(500)) // 500
+console.log(counter()) // 501
+console.log(counter()) // 502
+console.log(counter(0)) // 0
+console.log(counter()) // 0
+console.log(counter()) // 1
 
 /*
  * #2
@@ -34,7 +39,24 @@ console.log('#5. JavaScript homework example file')
  * counterFactory.decrement() - зменшує значення лічильника на 1
  */
 
-// const counterFactory = function () {}
+const counterFactory = (function () {
+  let count = 0;
+
+  return {
+    value(n) {
+      if (typeof n === 'number') {
+        count = n;
+      }
+      return count;
+    },
+    increment() {
+      count++;
+    },
+    decrement() {
+      count--;
+    }
+  };
+})();
 
 // console.log(counterFactory.value()) // 0
 // counterFactory.increment()
@@ -65,13 +87,22 @@ console.log('#5. JavaScript homework example file')
  * console.log(myPow(2, -2, myPrint)) // 2^-2=0.25
  */
 
-// const myPrint = () => {}
-// const myPow = () => {}
+const myPrint = (a, b, res) => `${a}^${b}=${res}`;
 
-// console.log(myPow(3, 4, myPrint)) // 3^4=81
-// console.log(myPow(2, 3, myPrint)) // 2^3=8
-// console.log(myPow(2, 0, myPrint)) // 2^0=1
-// console.log(myPow(2, -2, myPrint)) // 2^-2=0.25
+const myPow = (a, b, cb) => {
+  const pow = (base, exponent) => {
+    if (exponent === 0) return 1;
+    if (exponent < 0) return 1 / pow(base, -exponent);
+    return base * pow(base, exponent - 1);
+  };
+
+  const result = pow(a, b);
+  return cb(a, b, result);
+};
+console.log(myPow(3, 4, myPrint)) // 3^4=81
+console.log(myPow(2, 3, myPrint)) // 2^3=8
+console.log(myPow(2, 0, myPrint)) // 2^0=1
+console.log(myPow(2, -2, myPrint)) // 2^-2=0.25
 
 
 /*
@@ -81,10 +112,10 @@ console.log('#5. JavaScript homework example file')
  * У реалізації функції має бути застосовано метод Math.max() і apply().
  */
 
-// const list = [12, 23, 100, 34, 56, 9, 233]
-// const myMax = () => {}
+const list = [12, 23, 100, 34, 56, 9, 233]
+const myMax = (arr) => Math.max.apply(null, arr);
 
-// console.log(myMax(list)); // 233
+console.log(myMax(list)); // 233
 
 /*
  * #5
@@ -92,7 +123,7 @@ console.log('#5. JavaScript homework example file')
  * Створіть функцію myMul(a, b), яка буде множити числа а і b, повертаючи результат.
  */
 
-// const myMul = () => {}
+const myMul = (a, b) => a * b;
 
 /*
  * Створіть функції myDouble(n), яка приймає один параметр і подвоює його.
@@ -100,18 +131,18 @@ console.log('#5. JavaScript homework example file')
  * Функція повертає результат обчислення.
  */
 
-// const myDouble
+const myDouble = myMul.bind(null, 2);
 
-// console.log(myDouble(3)) // = myMul(2, 3) = 6
-// console.log(myDouble(4)) // = myMul(2, 4) = 8
-// console.log(myDouble(5)) // = myMul(2, 5) = 10
+console.log(myDouble(3)) // = myMul(2, 3) = 6
+console.log(myDouble(4)) // = myMul(2, 4) = 8
+console.log(myDouble(5)) // = myMul(2, 5) = 10
 
 // Аналогічним чином створюємо функцію myTriple(n), яка потроює параметр, що приймає, повертаючи результат.
 
-// const myTriple
+const myTriple = myMul.bind(null, 3);
 
-// console.log(myTriple(3)) // = myMul(3, 3) = 9
-// console.log(myTriple(4)) // = myMul(3, 4) = 12
-// console.log(myTriple(5)) // = myMul(3, 5) = 15
+console.log(myTriple(3)) // = myMul(3, 3) = 9
+console.log(myTriple(4)) // = myMul(3, 4) = 12
+console.log(myTriple(5)) // = myMul(3, 5) = 15
 
 export { counter, counterFactory, myPow, myMax, myMul, myDouble, myTriple }
