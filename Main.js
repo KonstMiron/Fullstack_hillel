@@ -9,8 +9,9 @@ console.log('#5. JavaScript homework example file')
  * якщо ні - то лічба триває
  */
 
-let count = 0;
+
 const counter = function(n) {
+  let count = 0;
   if (typeof n === 'number') {
     count = n;
   }
