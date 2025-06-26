@@ -17,11 +17,14 @@ console.log('#9. JavaScript homework example file')
  */
 
 function handleButtonClick(buttonId, message) {
-  // code here
+  const navigator = document.getElementById(buttonId);
+  navigator.addEventListener('click', () => {
+    console.log(message);
+  });
 }
 
 // Демонстрація використання функції (припустимо, що HTML містить кнопку з ID 'myButton')
-// handleButtonClick('myButton', 'Button clicked!');
+handleButtonClick('myButton', 'Button clicked!');
 
 /*
  * #2
@@ -37,10 +40,13 @@ function handleButtonClick(buttonId, message) {
  */
 
 function trackMousePosition() {
-  // code here
+  function handleMouseMove(event) {
+    console.log(`Mouse X: ${event.clientX}, Mouse Y: ${event.clientY}`);
+  }
+  document.addEventListener('mousemove', handleMouseMove);
 }
 
-// console.log(trackMousePosition())
+console.log(trackMousePosition())
 
 /*
  * #3
@@ -55,22 +61,27 @@ function trackMousePosition() {
  *
  */
 
-// function createTestList() {
-//   document.body.innerHTML = `
-//     <ul id="testList">
-//       <li>Item 1</li>
-//       <li>Item 2</li>
-//       <li>Item 3</li>
-//     </ul>
-//     `
-// }
-// createTestList()
+function createTestList() {
+   document.body.innerHTML = `
+     <ul id="testList">
+       <li>Item 1</li>
+       <li>Item 2</li>
+       <li>Item 3</li>
+     </ul>
+     `
+ }
+ createTestList()
 
 function setupEventDelegation(selector) {
-  // code here
+  const list = document.querySelector(selector);
+  list.addEventListener('click', (event) => {
+    if (event.target.tagName === 'LI') {
+      console.log(`Item clicked: ${event.target.textContent.trim()}`);
+    }
+  });
 }
 
-// setupEventDelegation('#testList')
+ setupEventDelegation('#testList')
 
 // Експорт функції для використання та тестування
 export { handleButtonClick, trackMousePosition, setupEventDelegation }
