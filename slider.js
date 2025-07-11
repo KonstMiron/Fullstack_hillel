@@ -1,111 +1,178 @@
-document.addEventListener("DOMContentLoaded", initSlider);
+function Slider(config) {
+  this.selector = config.selector;
+  this.interval = config.interval || 3000;
+  this.showIndicators = config.showIndicators !== false;
+  this.pauseOnHover = config.pauseOnHover || false;
+  this.carousel = document.querySelector(this.selector);
+  this.currentIndex = 0;
+  this.isPaused = false;
 
-function initSlider() {
-  const slider = document.querySelector(".carousel");
-  const slides = document.querySelectorAll(".carousel-item");
-  const nextBtn = document.querySelector(".carousel-control.next");
-  const prevBtn = document.querySelector(".carousel-control.prev");
-  const indicators = document.querySelectorAll(".indicator");
+  this.images = [
+    'img/1.jpg',
+    'img/2.jpg',
+    'img/3.jpg',
+  ];
 
-  let currentIndex = 0;
-  let intervalId = null;
-  let isPaused = false;
+  this.init();
+}
 
-  goToSlide(currentIndex);
-  startAutoSlide();
+Slider.prototype.init = function () {
+  this.createStructure();
+  this.goToSlide(this.currentIndex);
+  this.attachEvents();
+  this.startAutoSlide();
+};
 
-  // Клік кнопками
-  nextBtn.addEventListener("click", () => {
-    nextSlide();
-    resetAutoSlide();
+Slider.prototype.createStructure = function () {
+  const inner = document.createElement('div');
+  inner.className = 'carousel-inner';
+
+  this.images.forEach(src => {
+    const item = document.createElement('div');
+    item.className = 'carousel-item';
+    const img = document.createElement('img');
+    img.src = src;
+    item.appendChild(img);
+    inner.appendChild(item);
   });
 
-  prevBtn.addEventListener("click", () => {
-    prevSlide();
-    resetAutoSlide();
-  });
+  this.carousel.appendChild(inner);
+  this.inner = inner;
+  this.slides = this.carousel.querySelectorAll('.carousel-item');
 
-  // Клік по індикаторах
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      currentIndex = index;
-      goToSlide(currentIndex);
-      resetAutoSlide();
+  const btnPrev = document.createElement('button');
+  btnPrev.className = 'carousel-control prev';
+  btnPrev.textContent = '‹';
+
+  const btnNext = document.createElement('button');
+  btnNext.className = 'carousel-control next';
+  btnNext.textContent = '›';
+
+  this.carousel.appendChild(btnPrev);
+  this.carousel.appendChild(btnNext);
+
+  this.prevBtn = btnPrev;
+  this.nextBtn = btnNext;
+
+  if (this.showIndicators) {
+    const indicators = document.createElement('div');
+    indicators.className = 'carousel-indicators';
+    this.indicatorElems = [];
+
+    this.images.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'indicator';
+      dot.dataset.index = i;
+      indicators.appendChild(dot);
+      this.indicatorElems.push(dot);
     });
+
+    this.carousel.appendChild(indicators);
+  }
+};
+
+Slider.prototype.goToSlide = function (index) {
+  this.slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
   });
 
-  // Клавіатура
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") {
-      prevSlide();
-      resetAutoSlide();
-    }
-    if (e.key === "ArrowRight") {
-      nextSlide();
-      resetAutoSlide();
-    }
-    if (e.key === " ") {
+  if (this.showIndicators) {
+    this.indicatorElems.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  this.currentIndex = index;
+};
+
+Slider.prototype.nextSlide = function () {
+  let next = this.currentIndex + 1;
+  if (next >= this.slides.length) next = 0;
+  this.goToSlide(next);
+};
+
+Slider.prototype.prevSlide = function () {
+  let prev = this.currentIndex - 1;
+  if (prev < 0) prev = this.slides.length - 1;
+  this.goToSlide(prev);
+};
+
+Slider.prototype.startAutoSlide = function () {
+  const self = this;
+  this.intervalId = setInterval(function () {
+    if (!self.isPaused) self.nextSlide();
+  }, this.interval);
+};
+
+Slider.prototype.stopAutoSlide = function () {
+  clearInterval(this.intervalId);
+};
+
+Slider.prototype.togglePause = function () {
+  this.isPaused = !this.isPaused;
+};
+
+Slider.prototype.attachEvents = function () {
+  const self = this;
+
+  this.nextBtn.addEventListener('click', function () {
+    self.nextSlide();
+    self.resetAuto();
+  });
+
+  this.prevBtn.addEventListener('click', function () {
+    self.prevSlide();
+    self.resetAuto();
+  });
+
+  if (this.showIndicators) {
+    this.indicatorElems.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        self.goToSlide(i);
+        self.resetAuto();
+      });
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') self.prevSlide();
+    if (e.key === 'ArrowRight') self.nextSlide();
+    if (e.key === ' ') {
       e.preventDefault();
-      togglePause();
+      self.togglePause();
     }
+    self.resetAuto();
   });
 
-  // Swipe
   let touchStartX = 0;
 
-  slider.addEventListener("touchstart", (e) => {
+  this.carousel.addEventListener('touchstart', function (e) {
     touchStartX = e.touches[0].clientX;
   });
 
-  slider.addEventListener("touchend", (e) => {
-    let diff = e.changedTouches[0].clientX - touchStartX;
-    if (diff > 50) prevSlide();
-    else if (diff < -50) nextSlide();
-    resetAutoSlide();
+  this.carousel.addEventListener('touchend', function (e) {
+    const diff = e.changedTouches[0].clientX - touchStartX;
+    if (diff > 50) self.prevSlide();
+    else if (diff < -50) self.nextSlide();
+    self.resetAuto();
   });
 
-  // Автоматичне переключення
-
-  function startAutoSlide() {
-    intervalId = setInterval(() => {
-      if (!isPaused) nextSlide();
-    }, 3000); 
+  if (this.pauseOnHover) {
+    this.carousel.addEventListener('mouseenter', () => self.isPaused = true);
+    this.carousel.addEventListener('mouseleave', () => self.isPaused = false);
   }
+};
 
-  function stopAutoSlide() {
-    clearInterval(intervalId);
-  }
+Slider.prototype.resetAuto = function () {
+  this.stopAutoSlide();
+  this.startAutoSlide();
+};
 
-  function resetAutoSlide() {
-    stopAutoSlide();
-    startAutoSlide();
-  }
-
-  function togglePause() {
-    isPaused = !isPaused;
-  }
-
-  // Перемикання слайдів
-
-  function nextSlide() {
-    currentIndex++;
-    if (currentIndex >= slides.length) currentIndex = 0;
-    goToSlide(currentIndex);
-  }
-
-  function prevSlide() {
-    currentIndex--;
-    if (currentIndex < 0) currentIndex = slides.length - 1;
-    goToSlide(currentIndex);
-  }
-
-  function goToSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
-    });
-
-    indicators.forEach((indicator, i) => {
-      indicator.classList.toggle("active", i === index);
-    });
-  }
-}
+document.addEventListener('DOMContentLoaded', function () {
+  new Slider({
+    selector: '.carousel',
+    interval: 3000,
+    showIndicators: true,
+    pauseOnHover: true,
+  });
+});
