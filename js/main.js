@@ -2,8 +2,17 @@ import {data} from "./data.js";
 
 let selectedCards = []
 let cardsData = doubleCardsData(data)
+let score = 0
+let startBtn = document.querySelector('#startBtn');
+
+startBtn.onclick = () => {
+    cardsData = cardsData(item => ({...item, matched: false}))
+    score = -1;
+    updateScore();
+}
 function doubleCardsData (initialData) {
     return [...initialData, ...initialData]
+    .sort(() => Math.random() - 0.5)
     .map((item, index) => ({
         ...item,
         id: index,
@@ -41,13 +50,13 @@ function triggerCard(cardData) {
 
     cardElem.classList.add('--open');
 
-    //setTimeout(() => {
-    //    cardElem.classList.remove('--open');
-    //}, 3000)
-
     selectCards(cardData);
 
-  
+    updateScore();
+
+    if(isGameOver()) {
+        alert('Your score is: ' + score);
+    }
 }
 
 function selectCards(card) {
@@ -70,11 +79,24 @@ function selectCards(card) {
          
     } else if(selectedCards.length >= 2 ) {
        
-
         selectedCards = [];
-    }
-    setTimeout(() =>  {
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.pointerEvents = 'none';
+        })
+
+        setTimeout(() =>  {
             populateField('.field', cardsData);
         }, 3000)
+    }
 
+
+}
+
+function updateScore() {
+    document.querySelector('.score__value').innerText = ++score;
+}
+
+function isGameOver() {
+    return cardsData.every(item => item.matched)
 }
