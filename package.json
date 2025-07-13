@@ -1,0 +1,22 @@
+{
+  "name": "fullstack_hillel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KonstMiron/Fullstack_hillel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KonstMiron/Fullstack_hillel/issues"
+  },
+  "homepage": "https://github.com/KonstMiron/Fullstack_hillel#readme",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
