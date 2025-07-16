@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>API Test</title>
+</head>
+<body>
+  <script type="module">
+    import { getData, postData, putData, patchData, deleteData } from './your-file.js';
+
+    getData('/posts/1');
+    postData('/posts', { title: 'JS Test', body: 'Test from browser', userId: 123 });
+    putData(1, { id: 1, title: 'Browser PUT', body: 'Updated in browser', userId: 1 });
+    patchData(1, { title: 'Browser PATCH' });
+    deleteData(1);
+  </script>
+</body>
+</html>

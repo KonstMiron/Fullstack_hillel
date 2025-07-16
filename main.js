@@ -27,13 +27,20 @@ console.log('#14. JavaScript homework example file');
  * - Код має бути чистим, добре структурованим, зі зрозумілими назвами змінних та функцій.
  *
  */
-
+const BASE_URL = 'https://jsonplaceholder.typicode.com';
 async function getData(segment) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`${BASE_URL}${segment}`);
+    if (!response.ok) {
+      console.error(`Error: HTTP status ${response.status}`);
+      return response.status;
+    }
+    const data = await response.json();
+    console.log('GET data:', data);
+    return data;
   } catch (error) {
-    // code here
+    console.error('Fetch error:', error.message);
+    return error.message;
   }
 }
 
@@ -65,10 +72,25 @@ async function getData(segment) {
 
 async function postData(segment, data) {
   try {
-    // const response = await fetch(...)
-    // code here
+     const response = await fetch(`${BASE_URL}${segment}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        console.error(`POST error: HTTP status ${response.status}`);
+        return `Error: ${response.status}`;
+      }
+
+      const responseData = await response.json();
+      console.log('POST response:', responseData);
+      return responseData;
   } catch (error) {
-    // code here
+    console.error('POST fetch error:', error.message);
+    return error.message;
   }
 }
 
@@ -100,10 +122,25 @@ async function postData(segment, data) {
 
 async function putData(id, data) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`${BASE_URL}/posts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      console.error(`PUT error: HTTP status ${response.status}`);
+      return `Error: ${response.status}`;
+    }
+
+    const responseData = await response.json();
+    console.log('PUT response:', responseData);
+    return responseData;  
   } catch (error) {
-    // code here
+    console.error('PUT fetch error:', error.message);
+    return error.message; 
   }
 }
 
@@ -135,10 +172,25 @@ async function putData(id, data) {
 
 async function patchData(id, data) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`${BASE_URL}/posts/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      console.error(`PATCH error: HTTP status ${response.status}`);
+      return `Error: ${response.status}`;
+    }
+
+    const responseData = await response.json();
+    console.log('PATCH response:', responseData);
+    return responseData;
   } catch (error) {
-    // code here
+    console.error('PATCH fetch error:', error.message);
+    return error.message;
   }
 }
 
@@ -172,11 +224,47 @@ async function patchData(id, data) {
 
 async function deleteData(id) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`${BASE_URL}/posts/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to delete post with id ${id}. Status: ${response.status}`);
+      return response.status;
+    }
+
+    console.log(`Post with id ${id} has been successfully deleted.`);
+    return true;
   } catch (error) {
-    // code here
+    console.error(`Error during deletion: ${error.message}`);
+    return error.message;
   }
 }
 
 export { getData, postData, putData, patchData, deleteData };
+
+// 1. GET
+getData('/posts/1');
+
+// 2. POST
+postData('/posts', {
+  title: 'My test post',
+  body: 'This is a test',
+  userId: 999,
+});
+
+// 3. PUT (повна заміна)
+putData(1, {
+  id: 1,
+  title: 'Updated title',
+  body: 'Updated body',
+  userId: 1,
+});
+
+// 4. PATCH (часткове оновлення)
+patchData(1, {
+  title: 'Patched title only',
+});
+
+// 5. DELETE
+deleteData(1);
