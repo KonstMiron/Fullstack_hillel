@@ -3,7 +3,7 @@
 ## Інсталяція
 
 1. Клонуйте репозиторій:
-git clone https://github.com/yourusername/gulp-project.git
+git clone https://github.com/KonstMiron/Fullstack_hillel/tree/home-work-33
 cd gulp-project
 2. Встановіть залежності:
 npm install

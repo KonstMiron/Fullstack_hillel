@@ -1,0 +1,9 @@
+body {
+  font-family: sans-serif;
+  background: #3498db;
+  color: #fff;
+}
+body h1 {
+  font-size: 2rem;
+  text-align: center;
+}
