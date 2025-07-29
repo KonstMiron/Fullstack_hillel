@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+main{
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.container{
+    padding: 0 calc(50vw - 350px);
+}
+.header{
+    padding-top: 16px;
+    display: flex;
+}
+.logo{
+    padding-left: 40px;
+    background: url('./img/logo.svg') -30px 50% no-repeat;
+    position: relative;
+    color: royalblue;
+    font-size: 24px;
+    &::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 50px;
+        background: url('./img/logo.svg') 0 50% no-repeat;
+        translate: -30px 0;
+    }
+}
+
+.search{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 400px;
+
+    &__label{
+        font-size: 16px;
+    }
+    &__field{
+        border: none;
+        border-bottom: 2px solid royalblue;
+        padding: 5px;
+        font-size: 16px;
+    }
+}
+
+.footer{
+    text-align: center;
+    padding: 20px 0;
+    font-size: 16px;
+    border-top: 1px solid royalblue;
+}
+
+.title-section{
+    &__heading{
+        text-align: center;
+        font-size: 32px;
+    }
+}
+.result-section{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+.recipe{
+    border: 1px solid royalblue;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    background: #fff;
+    flex-direction: column;
+    gap: 10px;
+
+    &__img{
+        display: block;
+        max-width: 100%;
+    }
+
+    &__info{
+        display: flex;
+        justify-content: space-between;
+    }
+    &__details{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        scale: 0;
+        transition: scale .25s, opacity .25s;
+
+ 
+    }
+    &__details-content{
+        padding: 24px;
+        background: #fff;
+        max-width: 450px;
+
+
+
+        button{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: scale .5s;
+        }
+    }
+}
+       .--open{
+            scale: 1;
+            opacity: 1;
+        }

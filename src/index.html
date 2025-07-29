@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+</head>
+<body>
+    
+    <header class="container header">
+        <a href="index.html" class="logo">
+            Hillel Recipe
+        </a>
+        <label  class="search">
+            <span class="search__label">Find recipe:</span> 
+            <input type="search" class="search__field" id="search" placeholder="pizza">
+        </label>
+    </header>
+    <main>
+        <section class="container title-section">
+            <h1 class="title-section__heading">
+                Recipes:
+            </h1>
+        </section>
+        <hr>
+        <section class="container result-section">
+            <article class="recipe">
+                <img class="recipe__img" src="" alt="">
+                    <h2 class="recipe__name">
+                        Pizza
+                    </h2>
+
+                <div class="recipe__info">
+                    <p class="recipe__energy">
+                        1000 kcal
+                    </p>
+                    <time class="recipe__time" datetime="">
+                        30 min
+                    </time>
+
+                    
+                </div>
+                <a href="#" class="recipe__link">
+                        How to cook >
+                </a>
+            </article>
+        </section>
+    </main>
+    <footer class="container footer">
+        <p class="footer__copy">
+            &copy; 2023 Hillel Recipe
+        </p>
+    </footer>
+
+    <div class="recipe__details">
+        <div class="recipe__details-content">
+            <button id="close">&times;</button>
+            <h3 class="recipe__details-title"></h3>
+
+            <ul class="recipe__details-list"></ul>
+        </div>
+
+    </div>
+</body>
+</html>
