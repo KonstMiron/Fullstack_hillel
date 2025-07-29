@@ -15,13 +15,13 @@ console.log('#19. TypeScript homework example file')
  *
  */
 
-function sumArray() {
-  // code here
+function sumArray(numbers: number[]): number {
+    return numbers.reduce((acc, num) => acc + num, 0);
 }
 
 // Вивід до консолі для демонстрації
-// console.log(sumArray([1, 2, 3, 4])) // Повинно вивести 10
-// console.log(sumArray([])) // Повинно вивести 0
+console.log(sumArray([1, 2, 3, 4])) // Повинно вивести 10
+console.log(sumArray([])) // Повинно вивести 0
 
 /*
  * #2
@@ -39,14 +39,22 @@ function sumArray() {
  *
  */
 
-type User = {}
-
-function createUser() {
-  // code here
+type User = {
+    name: string;
+    age: number;
+    isActive: boolean;
 }
 
-// const newUser = createUser('Анна', 25, true)
-// console.log(newUser)
+function createUser(name: string, age: number, isActive: boolean): User {
+    return {
+        name,
+        age,
+        isActive
+    };
+}
+
+const newUser = createUser('Анна', 25, true)
+console.log(newUser)
 
 /*
  * #3
@@ -70,16 +78,32 @@ function createUser() {
  *
  */
 
-enum OrderStatus {}
+enum OrderStatus {
+  Pending = 'Pending',
+  Shipped = 'Shipped',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled',
+}
 
-function getOrderStatus() {
-  // code here
+function getOrderStatus( status: OrderStatus ): string {
+  switch (status) {
+    case OrderStatus.Pending:
+      return 'Замовлення очікує на обробку';
+    case OrderStatus.Shipped:
+      return 'Замовлення було відправлено';
+    case OrderStatus.Delivered:
+      return 'Замовлення доставлено';
+    case OrderStatus.Cancelled:
+      return 'Замовлення скасовано';
+    default:
+      throw new Error('Невідомий статус замовлення');
+  }
 }
 
 // Приклад виклику функції
-// console.log(getOrderStatus(OrderStatus.Pending))
-// console.log(getOrderStatus(OrderStatus.Shipped))
-// console.log(getOrderStatus(OrderStatus.Delivered))
-// console.log(getOrderStatus(OrderStatus.Cancelled))
+console.log(getOrderStatus(OrderStatus.Pending))
+console.log(getOrderStatus(OrderStatus.Shipped))
+console.log(getOrderStatus(OrderStatus.Delivered))
+console.log(getOrderStatus(OrderStatus.Cancelled))
 
-export { sumArray, createUser, OrderStatus, getOrderStatus }
+
