@@ -3,6 +3,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { watch } = require('fs/promises');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     mode: 'development',
@@ -21,6 +23,11 @@ module.exports = {
             template: path.resolve(__dirname, './src/index.html')
         }),
         new CleanWebpackPlugin(),
+        new ESLintPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false
+        }),
     ],
     devtool: 'source-map',
     devServer:{
@@ -37,6 +44,10 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
+                test: /\.less$/i,
+                use: ['style-loader', 'css-loader', 'less-loader']
+            },
+            {
                 test: /\.(png|jpg|jpeg|svg|gif|webp)$/,
                 type: 'asset/resource',
             },
@@ -44,6 +55,21 @@ module.exports = {
                 test: /\.(ttf|woff|woff2|eot)$/,
                 type: 'asset/resource',
             },
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+                resolve: {
+                    extensions: ['.ts', '.js'],
+                },
+            },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            }
         ]
     }
 }

@@ -1,9 +1,10 @@
 {
   "name": "fullstack_hillel",
   "version": "1.0.0",
+  "type": "module",
   "main": "main.js",
   "scripts": {
-    "dev": "webpack serve --watch",
+    "dev": "webpack serve",
     "build": "webpack"
   },
   "repository": {
@@ -19,14 +20,23 @@
   "homepage": "https://github.com/KonstMiron/Fullstack_hillel#readme",
   "description": "",
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@eslint/js": "^9.32.0",
+    "babel-loader": "^10.0.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
+    "eslint": "^9.32.0",
+    "eslint-webpack-plugin": "^5.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
     "sass": "^1.89.2",
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
     "webpack": "^5.100.2",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   }
