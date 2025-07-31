@@ -1,5 +1,4 @@
 module.exports = {
-  extends: ["eslint.config.js"],
   env: {
     browser: true,
     es2021: true,
